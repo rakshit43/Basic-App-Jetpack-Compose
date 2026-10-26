@@ -1,0 +1,6 @@
+- [x] Add ID to password field in `loginscreen.xml`
+- [x] Fix `LoginInterface.java` parameter type
+- [x] Fix `LoginScreen.java` initialization and logic
+- [x] Verify changes with `analyze_file`
+- [x] Build project to ensure no regressions
+- [x] Create walkthrough

@@ -1,0 +1,29 @@
+﻿$kind: http-request
+name: Login
+method: POST
+url: 'https://dummyjson.com/user/login'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {"username": "emilys", "password": "emilyspass"}
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status code is 200', function () {
+          pm.response.to.have.status(200);
+      });
+      pm.test('Response time is less than 2000ms', function () {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+      pm.test('Response has accessToken', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('accessToken').that.is.a('string');
+      });
+      pm.test('accessToken is not empty', function () {
+          const json = pm.response.json();
+          pm.expect(json.accessToken).to.not.be.empty;
+      });

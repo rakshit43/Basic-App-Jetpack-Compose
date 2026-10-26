@@ -1,0 +1,33 @@
+﻿$kind: http-request
+name: 'Add User (Signup)'
+method: POST
+url: 'https://dummyjson.com/users/add'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {"firstName": "Test", "lastName": "User", "age": 25, "email": "test@example.com", "password": "testpass123"}
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status code is 200', function () {
+          pm.response.to.have.status(200);
+      });
+      pm.test('Response time is less than 2000ms', function () {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+      pm.test('Response has id field', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('id');
+      });
+      pm.test('Response echoes back email', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('email');
+      });
+      pm.test('Response echoes back firstName', function () {
+          const json = pm.response.json();
+          pm.expect(json.firstName).to.equal('Test');
+      });

@@ -1,0 +1,131 @@
+<resources>
+    <string name="app_name">AttendEase</string>
+    <string name="welcome">Welcome</string>
+    <string name="About">Attendance Management</string>
+
+    <!-- User List Strings -->
+    <string name="user_list_title">Users</string>
+    <string name="no_users_found">"No users available.\nTap the '+' button to add a user."</string>
+    <string name="add_user">Add User</string>
+    <string name="btn_add_user">+</string>
+
+    <!-- Attendance App UI Strings -->
+    <string name="clot_app_name">AttendEase</string>
+    <string name="sign_in_title">Employee Sign In</string>
+    <string name="email_address_hint">Employee Email / ID</string>
+    <string name="continue_text">Sign In to Workplace</string>
+    <string name="dont_have_account_prompt">New Employee?</string>
+    <string name="continue_with_apple">Sign In with Work Apple ID</string>
+    <string name="continue_with_google">Sign In with Google Workspace</string>
+    <string name="continue_with_facebook">Sign In with SSO Provider</string>
+    <string name="password_hint">Password</string>
+    <string name="forgot_password_prompt">Forgot Password? Reset Here</string>
+    <string name="create_account_title">Employee Registration</string>
+    <string name="firstname_hint">First Name</string>
+    <string name="lastname_hint">Last Name</string>
+    <string name="email_sent_message">We sent a password reset link to your work email.</string>
+    <string name="return_to_login">Return to Sign In</string>
+    <string name="tell_us_about_yourself_title">Workplace Setup</string>
+    <string name="who_do_you_shop_for_question">Select Preferred Shift</string>
+    <string name="men_gender">Morning Shift (9AM - 5PM)</string>
+    <string name="women_gender">Evening Shift (2PM - 10PM)</string>
+    <string name="how_old_are_you_question">Select Department</string>
+    <string name="age_range_hint">Department / Unit</string>
+    <string name="finish_text">Complete Setup</string>
+
+    <!-- Check In Out & Stopwatch Strings -->
+    <string name="attendance_tracker_title">Attendance &amp; Work Tracker</string>
+    <string name="attendance_tracker_subtitle">Track your daily work shift</string>
+    <string name="check_in_time_default">Check In Time: --:--</string>
+    <string name="btn_check_in">CHECK IN</string>
+    <string name="stopwatch_default_time">00:00:00</string>
+    <string name="stopwatch_label">STOPWATCH</string>
+    <string name="btn_start">Start</string>
+    <string name="btn_pause">Pause</string>
+    <string name="btn_reset">Reset</string>
+    <string name="check_out_time_default">Check Out Time: --:--</string>
+    <string name="btn_check_out">CHECK OUT</string>
+    <string name="cd_stopwatch_icon">Stopwatch Icon</string>
+
+    <!-- Apply Leave Strings -->
+    <string name="apply_leave_title">Apply for Leave</string>
+    <string name="apply_leave_subtitle">Submit your leave request for approval</string>
+    <string name="leave_type_label">Leave Type</string>
+    <string name="leave_type_hint">Select leave category</string>
+    <string name="from_date_label">From Date</string>
+    <string name="from_date_hint">Select start date</string>
+    <string name="to_date_label">To Date</string>
+    <string name="to_date_hint">Select end date</string>
+    <string name="leave_duration_full_day">Full Day</string>
+    <string name="leave_duration_half_day">Half Day</string>
+    <string name="leave_reason_label">Reason for Leave</string>
+    <string name="leave_reason_hint">Write your reason for leave here&#8230;</string>
+    <string name="emergency_contact_label">Contact Number During Leave</string>
+    <string name="emergency_contact_hint">e.g. +1 234 567 890</string>
+    <string name="btn_submit_leave">Submit Request</string>
+    <string name="cd_calendar_icon">Calendar Icon</string>
+
+    <!-- Login Screen Strings -->
+    <string name="app_logo_desc">App Logo</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_subtitle">Sign in to access your account</string>
+    <string name="email_address">Email Address</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="dont_have_account">Don\'t have an account? </string>
+    <string name="register">Register</string>
+    <!-- Bottom Nav Strings -->
+    <string name="nav_user">User</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_apply_leave">Apply Leave</string>
+    <string name="nav_payslips">Payslips</string>
+    <string name="home">Home</string>
+    <!-- Profile Strings -->
+    <string name="profile_title">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="personal_info_section">Personal Information</string>
+    <string name="employment_info_section">Employment Information</string>
+    <string name="profile_name">Full Name</string>
+    <string name="profile_email">Email Address</string>
+    <string name="profile_phone">Phone Number</string>
+    <string name="profile_dob">Date of Birth</string>
+    <string name="profile_gender">Gender</string>
+    <string name="profile_join_date">Join Date</string>
+    <string name="btn_logout">Logout</string>
+    <!-- Payslip Screen Strings -->
+    <string name="payslips_heading">Payslips</string>
+    <string name="payslips_subtitle">View and download your monthly salary statements</string>
+    <string name="btn_download_payslip">Download Payslip</string>
+    <string name="btn_download">Download</string>
+    <string name="payslip_month_default">October 2026</string>
+    <string name="payslip_amount_default">Rs 4,250.00</string>
+    <string name="payslip_date_default">Paid on Oct 30, 2026</string>
+    <string name="payslip_status_paid">PAID</string>
+    <string name="payslip_download_desc">Download Payslip PDF</string>
+    <!-- Calendar Screen Strings -->
+    <string name="calendar_title">Calendar</string>
+    <string name="calendar_subtitle">Track your work shifts, attendance, and leave events</string>
+    <string name="selected_date_label">Selected Date</string>
+    <string name="leaves_schedule_title">Leaves &amp; Schedule</string>
+    <!-- Leave Item Strings -->
+    <string name="leave_type_default">Casual Leave</string>
+    <string name="leave_dates_default">12 Oct 2026 - 14 Oct 2026 (3 Days)</string>
+    <string name="leave_reason_default">Personal family occasion and commitments</string>
+    <string name="leave_applied_on_default">Applied on Oct 10, 2026</string>
+    <string name="leave_status_pending">PENDING</string>
+    <string name="leave_status_approved">APPROVED</string>
+    <!-- Assigned Task Strings -->
+    <string name="assigned_task_title">Assigned Task</string>
+    <string name="assigned_by_leader">Assigned by Team Leader / Admin</string>
+    <string name="task_priority_high">High Priority</string>
+    <string name="sample_task_name">Complete Quarterly Attendance Audit</string>
+    <string name="sample_task_due">Due Today • 05:00 PM</string>
+    <!-- Holiday Item Strings -->
+    <string name="holiday_name_default">New Year\'s Day</string>
+    <string name="holiday_type_default">Public Holiday</string>
+    <string name="holiday_date_default">01 Jan 2025</string>
+    <string name="holiday_day_default">(Wednesday)</string>
+    <string name="holiday_desc_default">New Year\'s Day Celebration</string>
+    <string name="cd_holiday_icon">Holiday Icon</string>
+</resources>

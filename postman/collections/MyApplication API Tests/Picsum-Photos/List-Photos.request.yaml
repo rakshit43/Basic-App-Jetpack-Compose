@@ -1,0 +1,28 @@
+﻿$kind: http-request
+name: List Photos
+method: GET
+url: 'https://picsum.photos/v2/list?_page=1&_limit=20'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status code is 200', function () {
+          pm.response.to.have.status(200);
+      });
+      pm.test('Response time is less than 2000ms', function () {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+      pm.test('Response is an array', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.be.an('array');
+      });
+      pm.test('Returns correct number of items (limit=20)', function () {
+          const json = pm.response.json();
+          pm.expect(json.length).to.equal(20);
+      });
+      pm.test('Each item has a download_url', function () {
+          const json = pm.response.json();
+          json.forEach(function(item) {
+              pm.expect(item).to.have.property('download_url').that.is.a('string');
+          });
+      });

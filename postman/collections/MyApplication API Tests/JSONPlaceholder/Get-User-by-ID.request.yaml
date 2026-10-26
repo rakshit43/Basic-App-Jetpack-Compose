@@ -1,0 +1,34 @@
+﻿$kind: http-request
+name: Get User by ID
+method: GET
+url: 'https://jsonplaceholder.typicode.com/users/1'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test('Status code is 200', function () {
+          pm.response.to.have.status(200);
+      });
+      pm.test('Response time is less than 2000ms', function () {
+          pm.expect(pm.response.responseTime).to.be.below(2000);
+      });
+      pm.test('Response has user id', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('id');
+      });
+      pm.test('Response has name and email', function () {
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('name').that.is.a('string');
+          pm.expect(json).to.have.property('email').that.is.a('string');
+      });
+      pm.test('Address fields are present', function () {
+          const json = pm.response.json();
+          pm.expect(json.address).to.have.property('street');
+          pm.expect(json.address).to.have.property('city');
+          pm.expect(json.address).to.have.property('zipcode');
+      });
+      pm.test('Geo coordinates are present', function () {
+          const json = pm.response.json();
+          pm.expect(json.address.geo).to.have.property('lat');
+          pm.expect(json.address.geo).to.have.property('lng');
+      });
