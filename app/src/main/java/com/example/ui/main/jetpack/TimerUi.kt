@@ -37,8 +37,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -50,6 +52,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.ui.NavDisplay
+import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
+import androidx.navigationevent.compose.rememberNavigationEventDispatcherOwner
 import com.example.ui.main.viewmodel.LoginViewModel
 import kotlinx.coroutines.delay
 
@@ -83,6 +90,56 @@ fun CheckInUi(modifier: Modifier = Modifier) {
 
 @Composable
 fun CheckInContent(modifier: Modifier = Modifier) {
+    val backstack = remember { mutableStateListOf<NavKey>(CheckIn) }
+    val dispatcherOwner = rememberNavigationEventDispatcherOwner(parent = null)
+
+    CompositionLocalProvider(LocalNavigationEventDispatcherOwner provides dispatcherOwner) {
+        NavDisplay(
+            backStack = backstack,
+            onBack = {
+                if (backstack.size > 1) {
+                    backstack.removeAt(backstack.lastIndex)
+                }
+            }
+        ) { key ->
+            NavEntry(key) {
+                when (key) {
+                    is CheckIn -> CheckInHomeContent(
+                        modifier = modifier,
+                        onAttendanceClick = { backstack.add(Attendance) },
+                        onMyTasksClick = { backstack.add(MyTasks) }
+                    )
+                    is Attendance -> AttendanceUi(
+                        onBackClick = {
+                            if (backstack.size > 1) {
+                                backstack.removeAt(backstack.lastIndex)
+                            }
+                        }
+                    )
+                    is MyTasks -> MyTasksUi(
+                        onBackClick = {
+                            if (backstack.size > 1) {
+                                backstack.removeAt(backstack.lastIndex)
+                            }
+                        }
+                    )
+                    else -> CheckInHomeContent(
+                        modifier = modifier,
+                        onAttendanceClick = { backstack.add(Attendance) },
+                        onMyTasksClick = { backstack.add(MyTasks) }
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun CheckInHomeContent(
+    modifier: Modifier = Modifier,
+    onAttendanceClick: () -> Unit = {},
+    onMyTasksClick: () -> Unit = {}
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -208,7 +265,7 @@ fun CheckInContent(modifier: Modifier = Modifier) {
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(18.dp),
                 color = Color(0xFF1E293B),
-                onClick = {}
+                onClick = onAttendanceClick
             ) {
                 Column(
                     modifier = Modifier.padding(18.dp),
@@ -245,7 +302,7 @@ fun CheckInContent(modifier: Modifier = Modifier) {
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(18.dp),
                 color = Color(0xFF1E293B),
-                onClick = {}
+                onClick = onMyTasksClick
             ) {
                 Column(
                     modifier = Modifier.padding(18.dp),

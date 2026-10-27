@@ -28,6 +28,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,6 +51,10 @@ fun UserTasks(
         listOf(
             "overview", "projects", "schedule", "favorites", "tasks", "activity"
         )
+    }
+    var searchTasks by remember { mutableStateOf("") }
+    val filteredTasks = products.filter { it.title.contains(searchTasks, ignoreCase = true)
+            || it.description.contains(searchTasks, ignoreCase = true)
     }
 
     Scaffold(
@@ -77,8 +85,8 @@ fun UserTasks(
             )
 
             OutlinedTextField(
-                value = viewModel.searchTask.value,
-                onValueChange = { viewModel.searchTask.value = it },
+                value = searchTasks,
+                onValueChange = { searchTasks = it },
                 label = {
                     Text(
                         "Search Tasks",
@@ -150,7 +158,7 @@ fun UserTasks(
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
                         itemsIndexed(
-                            products
+                            filteredTasks
                         ) { _, product ->
                             Card(
                                 modifier = Modifier.fillMaxWidth(),

@@ -60,7 +60,6 @@ import com.example.ui.main.activity.Login
 import com.example.ui.main.activity.TimerActivity
 import com.example.ui.main.sharedpreference.PreferManager
 import com.example.ui.main.viewmodel.ProfileDetailsViewModel
-import org.jetbrains.annotations.Async
 
 @Composable
 fun UserProfile(modifier: Modifier = Modifier) {

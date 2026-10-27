@@ -10,12 +10,8 @@ import kotlinx.coroutines.launch
 class TasksViewModel : ViewModel(){
 
     val loginRepository = LoginRepository()
-
-    val isSelected = mutableStateOf(0)
-    val searchTask = mutableStateOf("")
     val selectedIndex = mutableStateOf(0)
     val productList = mutableStateOf<List<Product>>(emptyList())
-    val isLoading = mutableStateOf(false)
 
     init {
         fetchProducts(0, 10)

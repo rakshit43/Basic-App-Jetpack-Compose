@@ -18,3 +18,12 @@ data object HelpUs : NavKey
 
 @Serializable
 data object Appearance : NavKey
+
+@Serializable
+data object CheckIn : NavKey
+
+@Serializable
+data object Attendance : NavKey
+
+@Serializable
+data object MyTasks : NavKey
