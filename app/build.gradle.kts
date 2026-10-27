@@ -102,4 +102,9 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.0")
     implementation("androidx.navigation3:navigation3-runtime:1.2.0")
     implementation("androidx.navigation3:navigation3-ui:1.2.0")
+
+
+    //Image Async Implementation
+    implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
 }

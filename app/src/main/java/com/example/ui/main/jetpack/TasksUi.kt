@@ -2,6 +2,7 @@ package com.example.ui.main.jetpack
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,14 +18,17 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -63,7 +67,15 @@ fun UserTasks(
                 .fillMaxSize()
                 .padding(innerPadding)
                 .padding(10.dp),
+
         ) {
+            Text(
+                text = "Tasks",
+                style = MaterialTheme.typography.headlineMedium,
+                color = Color.White,
+                modifier = Modifier.padding(start = 4.dp, top = 8.dp, bottom = 8.dp)
+            )
+
             OutlinedTextField(
                 value = viewModel.searchTask.value,
                 onValueChange = { viewModel.searchTask.value = it },
@@ -91,33 +103,44 @@ fun UserTasks(
                 }
             )
             Spacer(modifier = Modifier.padding(10.dp))
+            if(products.isEmpty())
+            {
+                Box(modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    CircularProgressIndicator(color = Color(0xFF3F52C8))
+                }
+            }
+            else{
+                LazyRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                ) {
 
-            LazyRow(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                itemsIndexed(tasks()) { index, category ->
-                    val selectedIndex = viewModel.selectedIndex.value
-                    val isSelected = index == selectedIndex
+                    itemsIndexed(tasks()) { index, category ->
+                        val selectedIndex = viewModel.selectedIndex.value
+                        val isSelected = index == selectedIndex
 
-                    Surface(
-                        color = if (isSelected) Color(0xFF3F52C8) else Color.LightGray,
-                        shape = RoundedCornerShape(20.dp),
-                        modifier = Modifier.clickable {
-                            viewModel.selectedIndex.value = index
-                        }
-                    ) {
-                        Text(
-                            text = category,
-                            color = if (isSelected) Color.White else Color.Black,
-                            modifier = Modifier.padding(
-                                horizontal = 16.dp,
-                                vertical = 10.dp
+                        Surface(
+                            color = if (isSelected) Color(0xFF3F52C8) else Color.LightGray,
+                            shape = RoundedCornerShape(20.dp),
+                            modifier = Modifier.clickable {
+                                viewModel.selectedIndex.value = index
+                            }
+                        ) {
+                            Text(
+                                text = category,
+                                color = if (isSelected) Color.White else Color.Black,
+                                modifier = Modifier.padding(
+                                    horizontal = 16.dp,
+                                    vertical = 10.dp
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }
+
             Spacer(modifier = Modifier.height(24.dp))
 
             LazyColumn(
@@ -126,28 +149,28 @@ fun UserTasks(
                     .weight(1f),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                itemsIndexed(
-                    products
-                ) { _, product ->
-                    Card(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(10.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = Color(0xFF1E293B)
-                        )
-                    ) {
-                        Column(
-                            modifier = Modifier.padding(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(10.dp)
-                        ) {
-                            Text(
-                                text = product.title,
-                                color = Color.White
-                            )
-                            Text(
-                                text = product.description,
-                                color = Color.LightGray
-                            )
+                        itemsIndexed(
+                            products
+                        ) { _, product ->
+                            Card(
+                                modifier = Modifier.fillMaxWidth(),
+                                shape = RoundedCornerShape(10.dp),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = Color(0xFF1E293B)
+                                )
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(16.dp),
+                                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                                ) {
+                                    Text(
+                                        text = product.title,
+                                        color = Color.White
+                                    )
+                                    Text(
+                                        text = product.description,
+                                        color = Color.LightGray
+                                    )
                         }
                     }
                 }

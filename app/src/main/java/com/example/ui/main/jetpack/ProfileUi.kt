@@ -16,7 +16,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Help
 import androidx.compose.material.icons.automirrored.filled.Logout
-import androidx.compose.material.icons.filled.Apps
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.FormatPaint
@@ -37,6 +36,7 @@ import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,17 +45,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.ui.NavDisplay
 import androidx.navigationevent.compose.LocalNavigationEventDispatcherOwner
 import androidx.navigationevent.compose.rememberNavigationEventDispatcherOwner
+import coil3.compose.AsyncImage
 import com.example.ui.main.activity.Login
 import com.example.ui.main.activity.TimerActivity
 import com.example.ui.main.sharedpreference.PreferManager
+import com.example.ui.main.viewmodel.ProfileDetailsViewModel
+import org.jetbrains.annotations.Async
 
 @Composable
 fun UserProfile(modifier: Modifier = Modifier) {
@@ -75,9 +80,33 @@ fun UserProfile(modifier: Modifier = Modifier) {
                 when (key) {
                     is Profile -> UserProfileContent(
                         modifier = modifier,
-                        onProfileClick = { backStack.add(UserDetails) }
+                        onProfileClick = { backStack.add(UserDetails) },
+                        onSettingsClick = { backStack.add(Settings) },
+                        onHelpClick = { backStack.add(HelpUs) },
+                        onAppearanceClick = { backStack.add(Appearance) }
                     )
                     is UserDetails -> ProfileDetails(
+                        onBackClick = {
+                            if (backStack.size > 1) {
+                                backStack.removeAt(backStack.lastIndex)
+                            }
+                        }
+                    )
+                    is Settings -> SettingUser(
+                        onBackClick = {
+                            if (backStack.size > 1) {
+                                backStack.removeAt(backStack.lastIndex)
+                            }
+                        }
+                    )
+                    is HelpUs -> HelpSupportScreen(
+                        onBackClick = {
+                            if (backStack.size > 1) {
+                                backStack.removeAt(backStack.lastIndex)
+                            }
+                        }
+                    )
+                    is Appearance -> AppearanceScreen(
                         onBackClick = {
                             if (backStack.size > 1) {
                                 backStack.removeAt(backStack.lastIndex)
@@ -97,8 +126,13 @@ fun UserProfile(modifier: Modifier = Modifier) {
 @Composable
 fun UserProfileContent(
     modifier: Modifier = Modifier,
-    onProfileClick: () -> Unit = {}
+    onProfileClick: () -> Unit = {},
+    onSettingsClick: () -> Unit = {},
+    onHelpClick: () -> Unit = {},
+    onAppearanceClick: () -> Unit = {}
 ) {
+    val viewModel: ProfileDetailsViewModel = viewModel()
+    val userDetails by viewModel.userDetails.observeAsState()
     var showLogoutDialog by remember { mutableStateOf(false) }
     val context = LocalContext.current
 
@@ -125,6 +159,13 @@ fun UserProfileContent(
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState())
         ) {
+            Text(
+                text = "User Profile",
+                style = MaterialTheme.typography.headlineMedium,
+                color = Color.White,
+                modifier = Modifier.padding(start = 16.dp, top = 16.dp, bottom = 8.dp)
+            )
+
             Card(
                 modifier = modifier.fillMaxWidth().padding(16.dp, 10.dp),
                 colors = CardDefaults.cardColors(
@@ -136,15 +177,16 @@ fun UserProfileContent(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Person,
-                        contentDescription = "Profile",
-                        tint = Color.White,
-                        modifier = modifier.padding(5.dp).size(80.dp)
+                    val user = viewModel.userDetails.value?.firstName
+                    AsyncImage(
+                        model = userDetails?.image,
+                        contentDescription = "User profile image",
+                        modifier = Modifier.size(100.dp),
+                        contentScale = ContentScale.Crop
                     )
 
                     Text(
-                        text = "Username",
+                        text = "$user",
                         style = MaterialTheme.typography.titleLarge,
                         color = Color.White,
                         modifier = modifier.padding(5.dp)
@@ -228,22 +270,20 @@ fun UserProfileContent(
                 ProfileMenuItem(
                     title = "Settings",
                     subtitle = "App Notifications",
-                    icon = Icons.Default.Settings
+                    icon = Icons.Default.Settings,
+                    onClick = onSettingsClick
                 )
                 ProfileMenuItem(
                     title = "Help",
                     subtitle = "Contact Us",
-                    icon = Icons.AutoMirrored.Filled.Help
-                )
-                ProfileMenuItem(
-                    title = "About",
-                    subtitle = "App Information",
-                    icon = Icons.Default.Apps
+                    icon = Icons.AutoMirrored.Filled.Help,
+                    onClick = onHelpClick
                 )
                 ProfileMenuItem(
                     title = "Appearance",
                     subtitle = "Change theme and appearance",
-                    icon = Icons.Default.FormatPaint
+                    icon = Icons.Default.FormatPaint,
+                    onClick = onAppearanceClick
                 )
                 ProfileMenuItem(
                     title = "Logout",

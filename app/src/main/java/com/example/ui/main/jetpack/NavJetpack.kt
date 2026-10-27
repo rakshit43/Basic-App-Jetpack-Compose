@@ -9,3 +9,12 @@ data object Profile : NavKey
 
 @Serializable
 data object UserDetails : NavKey
+
+@Serializable
+data object Settings : NavKey
+
+@Serializable
+data object HelpUs : NavKey
+
+@Serializable
+data object Appearance : NavKey
