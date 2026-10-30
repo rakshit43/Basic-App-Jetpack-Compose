@@ -229,7 +229,7 @@ fun LoginScreen(modifier: Modifier = Modifier)
                                 val login = loginModel(username.value,password.value,30)
                                 val response = LoginViewModel().login(login,onResult = { success ->
                                     if (success) {
-                                        PreferManager.saveLogin(context,true)
+                                        PreferManager.saveLogin(context, true)
                                         val intent = Intent(context, TimerActivity::class.java)
                                         context.startActivity(intent)
                                         isLoading = false

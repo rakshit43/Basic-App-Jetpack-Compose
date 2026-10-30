@@ -1,12 +1,14 @@
 package com.example.ui.main.interfaces
 
 import com.example.ui.main.jetpack.loginModel
+import com.example.ui.main.model.EditUser
 import com.example.ui.main.model.ProductList
 import com.example.ui.main.model.UserDetails
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -27,4 +29,10 @@ interface service {
     suspend fun getUser(
         @Path("id") id: Int
     ): Response<UserDetails>
+
+    @PUT("users/{id}")
+    suspend fun updateUser(
+        @Path("id") id: Int,
+        @Body user: EditUser
+    ): Response<Unit>
 }

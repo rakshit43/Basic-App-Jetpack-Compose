@@ -8,28 +8,23 @@ import com.example.ui.main.jetpack.loginModel
 import com.example.ui.main.repository.LoginRepository
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel(){
+class LoginViewModel : ViewModel() {
     val loginRepository = LoginRepository()
     val username = mutableStateOf("")
     val password = mutableStateOf("")
     val selectedItem = mutableIntStateOf(0)
+    val isDarkTheme = mutableStateOf(true)
 
-    fun login(login: loginModel,onResult: (Boolean) -> Unit)
-    {
+    fun login(login: loginModel, onResult: (Boolean) -> Unit) {
         viewModelScope.launch {
             try {
                 val response = loginRepository.GetUsers(login)
-                if (response?.isSuccessful == true)
-                {
+                if (response?.isSuccessful == true) {
                     onResult(true)
-                }
-                else
-                {
+                } else {
                     onResult(false)
                 }
-            }
-            catch (e: Exception)
-            {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }

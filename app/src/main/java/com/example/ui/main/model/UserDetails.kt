@@ -1,5 +1,9 @@
 package com.example.ui.main.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "user_details")
 data class UserDetails(
     val age: Int,
     val birthDate: String,
@@ -9,6 +13,7 @@ data class UserDetails(
     val firstName: String,
     val gender: String,
     val height: Double,
+    @PrimaryKey
     val id: Int,
     val image: String,
     val lastName: String,
